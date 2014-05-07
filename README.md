@@ -5,6 +5,22 @@ Adds a number of run-time configuration options for the uglify step of a build p
 
 You can now do things like this:
 
+	<properties>
+		...
+		<uglify-command>/home/user/node_modules/uglify-js/bin/uglifyjs</uglify-command>
+		<project-source-files>
+		    a1.js,
+		    a2.js,
+		    b.js,
+		    d.js,
+		    c.js,
+		    i.js,
+		    l.js
+		    ...
+		    x.js
+		</project-source-files>
+	</properties>
+...
 		<build>
 			...
 			<plugins>
