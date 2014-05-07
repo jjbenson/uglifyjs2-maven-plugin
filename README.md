@@ -44,8 +44,8 @@ You can now do things like this:
 								<mainFileName>project-main.js</mainFileName>
 								<sourceFiles>${project-source-files}</sourceFiles>
 								<outputFileName>project.min.js</outputFileName>
-								<jsSourceDir>${project.build.directory}/ugli</jsSourceDir>
-								<jsOutputDir>${project.build.directory}/test-classes/js</jsOutputDir>
+								<jsSourceDir>${project.build.directory}/ugli-source</jsSourceDir>
+								<jsOutputDir>${project.build.directory}/ugli-destination</jsOutputDir>
 							</configuration>
 						</execution>
 						...
@@ -62,8 +62,8 @@ You can now do things like this:
 								<mainFileName>project-main.js</mainFileName>
 								<sourceFiles>${project-source-files}</sourceFiles>
 								<outputFileName>project.js</outputFileName>
-								<jsSourceDir>${project.build.directory}/ugli</jsSourceDir>
-								<jsOutputDir>${project.build.directory}/test-classes/js</jsOutputDir>
+								<jsSourceDir>${project.build.directory}/ugli-source</jsSourceDir>
+								<jsOutputDir>${project.build.directory}/ugli-destination</jsOutputDir>
 							</configuration>
 						</execution>
 						...
