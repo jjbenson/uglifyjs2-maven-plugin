@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -124,8 +125,13 @@ public class UglifyJs2Mojo extends AbstractMojo {
 				File f = new File(jsSourceDir,name.trim());
 				otherFiles.add( f );
 			}
+			jsFiles = reorder( jsFiles, otherFiles );
 		}
-		if( !mainFileName.isEmpty() || !otherFiles.isEmpty() ) {
+		else if( !merge && !mainFileName.isEmpty() ) {
+			jsFiles = Arrays.asList( new File(jsSourceDir,mainFileName) ); 
+				
+		}
+		else if( !mainFileName.isEmpty() || !otherFiles.isEmpty() ) {
 			jsFiles = reorder( jsFiles, otherFiles );
 		}
 		if( !merge ) {
@@ -174,7 +180,7 @@ public class UglifyJs2Mojo extends AbstractMojo {
 					break;
 				}
 			}
-			else if( !preOrdered ) {
+			else if( !preOrdered && merge ) {
 				others.add(file);
 			}
 		}
@@ -188,9 +194,16 @@ public class UglifyJs2Mojo extends AbstractMojo {
 	
 	private Process runUglifyJs2Process(File inputFile) throws IOException, InterruptedException {
 		StringBuilder commandLine = new StringBuilder(command);
-		commandLine.append( ' ' ).append( inputFile.getPath() );
-		String outFile = this.getOutputFile(inputFile).getPath();
-		return runUglifyJs2Command( commandLine, inputFile.getPath(), outFile);
+		String fqfn = inputFile.getPath();
+		commandLine.append( ' ' ).append( fqfn );
+		String outFile;
+		if( inputFile.getName().equals( mainFileName ) ) {
+			outFile = jsOutputDir.getPath() + File.separator + outputFileName;
+		}
+		else {
+			outFile = this.getOutputFile(inputFile).getPath();
+		}
+		return runUglifyJs2Command( commandLine, fqfn, outFile);
 	}
 	
 	private Process runUglifyJs2Process(Collection<File> jsFiles) throws IOException, InterruptedException {
